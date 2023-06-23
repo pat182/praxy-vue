@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praxy</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
 
      <link rel="stylesheet" type="text/css" href="src/assets/main.css">
 
@@ -24,13 +25,21 @@
         </div>              
     </div>
     <div class="wrapper">
-        
         <nav id='nav' class="main-header navbar navbar-expand navbar-light">
             <nav-bar-component />
         </nav>
         <aside id='msb' class='main-sidebar sidebar-dark-primary'>
           <msb-component />
         </aside>
+    </div>
+    <div class='content-wrapper main-container'>
+      <router-link to="/dashboard">Go to Home</router-link>
+      <!-- <div class='content-header'>
+        <h1>Dashboard</h1>  
+      </div>
+      <section class='content-section'>
+
+      </section>  -->
     </div>
 
     <!-- scripts -->

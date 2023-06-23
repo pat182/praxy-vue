@@ -10,14 +10,12 @@ export default class MainSideBar {
 	}
 
 	_render_msb(){
-
 		let msb = this.msb.createApp({}),
 		self = this;
 		msb.component('msb-component',{
 			components : ['list-items'],
 			template : `<a :href="page" class="brand-link">
-							<img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" 
-							alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+							<i class="brand-image fa-solid fa-code"></i>
 							<span class="brand-text font-weight-light">{{brand}}</span>
 						</a>
 						<div class="user-panel">
@@ -48,13 +46,12 @@ export default class MainSideBar {
 					},
 					side_list : [
 						{
-							name : 'Categories',
-							icon : 'fa-solid fa-boxes-stacked'
+							name : 'DashBoard', 
+							icon : 'fa-solid fa-dashboard'
 						},
 						{
-							name : 'Products',
+							name : 'Categories',
 							icon : 'fa-solid fa-box-open'
-
 						}
 					]
 				}
@@ -63,14 +60,9 @@ export default class MainSideBar {
 			beforeMount() {
 				// console.log(this.side_list);
 			}
-			// methods : {
-
-
-
-			// }
 		})
 		msb.component('list-items',{
-			template : `<li><a><i :class="icon" ></i><span>{{name}}</span></a></li>`,
+			template : `<li><a href="#"><i :class="icon" ></i><span>{{name}}</span></a></li>`,
 			props : ['name','icon']
 		})
 		msb.mount("#msb");

@@ -17,8 +17,8 @@ export default class NavBarComponent {
 						</ul>
 						<ul class="navbar-nav navbar-right">
 							<li>
-								<a href="javascript:void(0)" @click="logout" class='nav-link'>
-									<label>logout</label>
+								<a style="cursor:pointer" href="javascript:void(0)" @click="logout" class='nav-link'>
+									<label style="cursor:pointer">logout</label>
 								</a>
 							</li>
 						</ul>`,

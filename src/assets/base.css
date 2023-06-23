@@ -5,6 +5,12 @@
     padding: 0; 
     box-sizing: border-box; 
 }*/
+body{
+    background-color: #f4f6f9;
+}
+h1,h2,h3,h4{
+    margin: 0 !important;
+}
 a {
     color: #007bff;
     text-decoration: none;

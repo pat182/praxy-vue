@@ -70,10 +70,11 @@
 /*nav*/
 #nav{
 	height: 7.6rem;
-	/*background-color: red;*/
-	border-bottom: ;
+	background-color: #fff;
 	margin-left: 27.9rem;
 	border-bottom: 1px solid #e7e7e7;
+	color: #1f2d3d;
+	/*margin-bottom: -2rem;*/
 }
 .navbar-expand .navbar-nav {
 	list-style: none;
@@ -84,10 +85,6 @@
 	/*float: left;*/
 }
 
-.navbar-white {
-    background-color: #fff;
-    color: #1f2d3d;
-}
 .main-header {
     border-bottom: 1px solid #dee2e6;
     z-index: 1034;
@@ -102,6 +99,7 @@
     align-items: center;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    margin-bottom: 0 !important;
     /*padding: 0.5rem 0.5rem;*/
 }
 .navbar-right{
@@ -142,13 +140,16 @@
 .font-weight-light {
     font-weight: 450!important;
 }
+.brand-link > span{
+	margin-left: -2.5rem;
+}
 .brand-image {
     float: left;
-    line-height: .8;
-    margin-left: -7rem;
-    margin-top: -7px;
-    max-height: 50px;
-    width: auto;
+    /*line-height: .8;*/
+    margin-left: -6rem;
+    margin-top: 8px;
+    /*max-height: 50px;*/
+    /*width: auto;*/
 
 }
 .user-panel {
@@ -202,4 +203,11 @@
 .nav-side-bar li:hover{
 	background-color: #4f5962;
 }
+.main-container{
+	display: block;
+	/*background-color: red;*/
+	margin-left: 28rem;
+	/*margin-top: -2rem;*/
+}
+
 
