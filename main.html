@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praxy</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+     <link rel="stylesheet" type="text/css" href="src/assets/main.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+  </head>
+  <body>
+
+    <div class="wrapper">
+        
+        <nav id='nav' class="main-header navbar navbar-expand navbar-light">
+            <nav-bar-component />
+        </nav>
+        <aside id='msb' class='main-sidebar sidebar-dark-primary'>
+          <msb-component />
+        </aside>
+    </div>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="config.js"></script>
+    <script type="module" src="src/components/nav-bar.js"></script>
+    <script defer type="module" src="src/app.event.js"></script>
+    <script type="text/javascript" src="src/app.core.js"></script>
+
+    
+  </body>
+</html>

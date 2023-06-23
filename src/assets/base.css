@@ -1,0 +1,117 @@
+/**,
+*::before,
+*::after { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}*/
+a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+a:hover{
+   text-decoration: none !important;
+}
+.margin-top-5{
+    margin-top: 5px;
+}
+.margin-top-10{
+    margin-top: 10px;
+}
+.margin-top-15{
+    margin-top: 15px;
+}
+.margin-right-5{
+    margin-right: 5px;
+}
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+.err-msg{
+    display: block;
+    color: #ff3333;
+    font-size: .8em;
+}
+.padding-10{
+    padding: 10px;
+}
+.margin-bottom-0{
+    margin-bottom:0;
+}
+.hide-el{
+    display:none;
+}
+.align-items-center{
+    text-align: center;
+}
+.align-left{
+    text-align: left;
+}
+.pull-left{
+    float: left !important;    
+}
+.btn:focus{
+  box-shadow: none !important;
+   outline: 0 !important;
+   border: none !important;
+}
+.btn{
+    border: none;
+}
+/*loader*/
+.loader-cont{
+    /*display:none;*/
+}
+.loader {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: relative;
+      animation: rotate 1s linear infinite;
+      left : 45%;
+    }
+    .loader::before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      inset: 0px;
+      border-radius: 50%;
+      border: 5px solid #286090;
+      animation: prixClipFix 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      100%   {transform: rotate(360deg)}
+    }
+
+    @keyframes prixClipFix {
+        0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+        25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+        50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+        75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+        100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+    }
+#pre-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999999999999999 !important;
+    display: none;
+}
+#pre-loader > .pre-container {
+    display: inline-block;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.pre-container > .loader{
+    width: 30px !important;
+    height: 30px !important;
+}

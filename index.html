@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praxy</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="src/assets/main.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+  </head>
+
+  <body>
+      <div id="pre-loader" class="">
+        <div class="pre-container">
+          <span class="loader" style="display:block;"></span>
+        </div>              
+      </div>
+      <section class="align-items-center">
+        
+          <div id="auth-page" class="container">
+            <login-form/>
+          </div>
+        
+      </section>
+    <!-- plugins -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/all.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+    <!-- ///////// -->
+    <!-- scripts -->
+    <script type="text/javascript" src="config.js"></script>
+    <script type="module" src="src/Auth/components/loginForm.js"></script>
+    <script type="module" src="src/Auth/_auth.js"></script>
+    <script type="text/javascript" src="src/index.js"></script>
+    <script type="text/javascript" src="src/app.core.js"></script>
+    <!-- <script type="text/javascript" src="src/app.event.js"></script> -->
+    
+  </body>
+</html>
