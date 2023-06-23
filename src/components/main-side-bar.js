@@ -59,7 +59,7 @@ export default class MainSideBar {
 				
 			},
 			beforeMount() {
-				console.log(this.side_list);
+				// console.log(this.side_list);
 			}
 			// methods : {
 
