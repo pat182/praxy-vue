@@ -122,7 +122,7 @@ export default class LoginFormComponent{
 					return data.data
 				},
 				async log_in() {
-
+					$('#pre-loader').show();
 					await self._log_in(this.logIn_payload())
 					.then(res => res.json())
 					.then((d) => {
