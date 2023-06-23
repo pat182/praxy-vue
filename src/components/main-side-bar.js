@@ -27,8 +27,12 @@ export default class MainSideBar {
 						</div>
 						<nav class='nav-side-bar'>
 							<ul>
+
 								<list-items v-for="(l,i) in side_list" :name="l['name']" :key="i" 
-								:icon="l['icon']"/>
+								:icon="l['icon']"
+								:route="l['href']"
+								/>
+
 							</ul>
 						</nav>`,
 			data() {
@@ -47,11 +51,13 @@ export default class MainSideBar {
 					side_list : [
 						{
 							name : 'DashBoard', 
-							icon : 'fa-solid fa-dashboard'
+							icon : 'fa-solid fa-dashboard',
+							href : '#/dashboard' 
 						},
 						{
 							name : 'Categories',
-							icon : 'fa-solid fa-box-open'
+							icon : 'fa-solid fa-box-open',
+							href : '#/category'
 						}
 					]
 				}
@@ -62,8 +68,8 @@ export default class MainSideBar {
 			}
 		})
 		msb.component('list-items',{
-			template : `<li><a href="#"><i :class="icon" ></i><span>{{name}}</span></a></li>`,
-			props : ['name','icon']
+			template : `<li><a :href="route"><i :class="icon" ></i><span>{{name}}</span></a></li>`,
+			props : ['name','icon','route']
 		})
 		msb.mount("#msb");
 		
