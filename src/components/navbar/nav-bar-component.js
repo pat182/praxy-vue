@@ -42,6 +42,11 @@ export default class NavBarComponent {
 						{
 							label : 'logout'
 						}
+					],
+					left_list : [
+						{
+							label : "<i class='fas fa-bars'></i>"
+						}
 					]
 				}		
 			},
@@ -65,14 +70,12 @@ export default class NavBarComponent {
 
 				},
 			},
-			components : ['msb-component', 'nav-right'],
+			components : ['msb-component', 'nav-right','nav-left'],
 			template : `<nav id='nav' class="main-header navbar navbar-expand navbar-light">
 							<ul class="navbar-nav">
-								<li class='nav-item'>
-									<a href="javascript:void(0)" class='nav-link'>
-										<i class="fas fa-bars"></i>
-									</a>
-								</li>
+								<nav-left v-for="(ll,li) in left_list"
+								:label = "ll['label']"
+								:key="li"/>
 							</ul>
 							<ul class="navbar-nav navbar-right">
 								<nav-right v-for="(rl,i) in right_list" 
@@ -82,19 +85,28 @@ export default class NavBarComponent {
 							</ul>
 						</nav>
 						<msb-component :brand="brand" :user_details="user_details" :role="role" :side_list="side_list" />
-			`,
+			`
 
 		}
-
 	}
 	_make_side_bar(){
-		
-		let self = this;
 
 		return this.sb._side_bar();
 	}
 	_make_side_list(){
+
 		return this.sb._side_bar_list()
+	}
+	_make_left_list(){
+
+		return {
+			props : ['label'],
+			template : `<li class='nav-item'>
+							<a href="javascript:void(0)" class='nav-link' v-html=label>
+
+							</a>
+						</li>`,
+		}
 	}
 	_make_right_list(){
 		return {
@@ -105,6 +117,7 @@ export default class NavBarComponent {
 								<label style="cursor:pointer">{{label}}</label>
 							</a>
 						</li>`
+
 		}
 
 	}
