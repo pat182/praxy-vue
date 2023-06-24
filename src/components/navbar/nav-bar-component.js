@@ -8,45 +8,6 @@ export default class NavBarComponent {
 		let self = this;
 		self.ud
 		return {
-			template : `<nav id='nav' class="main-header navbar navbar-expand navbar-light">
-							<ul class="navbar-nav">
-								<li class='nav-item'>
-									<a href="javascript:void(0)" class='nav-link'>
-										<i class="fas fa-bars"></i>
-									</a>
-								</li>
-							</ul>
-							<ul class="navbar-nav navbar-right">
-								<li>
-									<a style="cursor:pointer" href="javascript:void(0)" @click="logout" class='nav-link'>
-										<label style="cursor:pointer">logout</label>
-									</a>
-								</li>
-							</ul>
-						</nav>
-						<msb-component :brand="brand" :user_details="user_details" :role="role" :side_list="side_list" />
-						`,
-			components : ['msb-component'],
-			methods : {
-				logout(){
-					$('#pre-loader').show();
-					fetch(core.api_url+"/logout",{
-						method : "POST",
-						headers : {
-							'Accept' : 'application/json',
-							'Content-Type' : 'application/json',
-							'Authorization' : 'Bearer ' + self.ud.token
-						},
-					}).then((res) => {
-						core._erase_cookie('user_details');
-						core._erase_cookie('token');
-						location.href = core.main_path;
-					})
-					
-					
-
-				},
-			},
 			data() {
 				return {
 					page : core.main_path,
@@ -73,9 +34,53 @@ export default class NavBarComponent {
 							icon : 'fa-solid fa-box-open',
 							href : '#/category'
 						}
+					],
+					right_list : [
+						{
+							label : 'logout'
+						}
 					]
 				}		
 			},
+			methods : {
+				logout(){
+					$('#pre-loader').show();
+					fetch(core.api_url+"/logout",{
+						method : "POST",
+						headers : {
+							'Accept' : 'application/json',
+							'Content-Type' : 'application/json',
+							'Authorization' : 'Bearer ' + self.ud.token
+						},
+					}).then((res) => {
+						core._erase_cookie('user_details');
+						core._erase_cookie('token');
+						location.href = core.main_path;
+					})
+					
+					
+
+				},
+			},
+			components : ['msb-component', 'nav-right'],
+			template : `<nav id='nav' class="main-header navbar navbar-expand navbar-light">
+							<ul class="navbar-nav">
+								<li class='nav-item'>
+									<a href="javascript:void(0)" class='nav-link'>
+										<i class="fas fa-bars"></i>
+									</a>
+								</li>
+							</ul>
+							<ul class="navbar-nav navbar-right">
+								<nav-right v-for="(rl,i) in right_list" 
+								@logout=logout()
+								:label="rl['label']" 
+								:key="i"/>
+							</ul>
+						</nav>
+						<msb-component :brand="brand" :user_details="user_details" :role="role" :side_list="side_list" />
+			`,
+
 		}
 
 	}
@@ -117,9 +122,21 @@ export default class NavBarComponent {
 			props : ['name','icon','route']
 		}
 	}
-	_make_nav_list(){
-
-
+	_make_right_list(){
+		// <li>
+		// 		<a style="cursor:pointer" href="javascript:void(0)" @click="logout" class='nav-link'>
+		// 			<label style="cursor:pointer">logout</label>
+		// 		</a>
+		// </li>
+		return {
+			props : ['label'],
+			emit : ['logout'],
+			template : `<li>
+							<a @click="$emit('logout')" style="cursor:pointer" href="javascript:void(0)" class='nav-link'>
+								<label style="cursor:pointer">{{label}}</label>
+							</a>
+						</li>`
+		}
 
 	}
 
