@@ -1,15 +1,16 @@
 
 import NavBar from './components/nav-bar';
-import MainSideBar from './components/main-side-bar';
+// import MainSideBar from './components/main-side-bar';
 
 const start = () => {
-	let token = core._get_cookie('token');
+	let token = core._get_cookie('token'),
+	user_details = core._get_cookie('user_details');
 
-	if(token){
+	if(token && user_details){
 		const nav = new NavBar();
-		const msb = new MainSideBar();
 		nav._render_nav();
-		msb._render_msb();
+		// const msb = new MainSideBar();
+		// msb._render_msb();
 		
 	}else{
 
