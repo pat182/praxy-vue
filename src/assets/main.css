@@ -125,16 +125,33 @@
 .main-sidebar{
   
   width: 280px;
-  /*width: 100px;*/
   height: inherit;
   min-height: 100%;
   position: absolute;
   top: 0;
   overflow-y: hidden;
-  /*left: 300px;*/
   z-index: 1038;
   box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)!important;
 }
+.info > img{
+	border-radius: 5rem;
+	margin-left: .4rem;
+	margin-right: 1rem;
+	height: 5rem;
+	width: 5rem;
+}
+/*.main-sidebar{
+  
+  width: 280px;
+  height: inherit;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  overflow-y: hidden;
+  z-index: 1038;
+  box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)!important;
+  
+}*/
 .slide-enter-active,
 .slide-leave-active {
   transition: transform 0.2s ease;
@@ -142,7 +159,7 @@
 
 .slide-enter-from,
 .slide-leave-to {
-  transform: translateX(-300px);
+  transform: translateX(-250px);
 }
 
 
@@ -175,9 +192,9 @@
 }
 .user-panel {
 	color: rgba(255,255,255,.8);
-	border-top : 1px solid #4f5962;
-  border-bottom: 1px solid #4f5962;
-  padding:10px;
+   	border-top : 1px solid #4f5962;
+  	border-bottom: 1px solid #4f5962;
+  	padding:2rem 1rem;
 }
 .info .info-txt{
 	cursor: context-menu;
