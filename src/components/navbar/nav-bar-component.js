@@ -1,7 +1,10 @@
+import SideBarComponent from './side-bar-component';
 
 export default class NavBarComponent {
 	constructor(userDetails){
+		
 		this.ud = userDetails;
+		this.sb = new SideBarComponent(this);
 	}
 	_make_nav (){
 
@@ -85,49 +88,15 @@ export default class NavBarComponent {
 
 	}
 	_make_side_bar(){
+		
 		let self = this;
-		return {
-			components : ['list-items'],
-			props : ['brand','user_details', 'role' , 'page', "side_list"],
-			template : `
-						<aside id='msb' class='main-sidebar sidebar-dark-primary'>
-							<a :href="page" class="brand-link">
-								<i class="brand-image fa-solid fa-code"></i>
-								<span class="brand-text font-weight-light">{{brand}}</span>
-							</a>
-							<div class="user-panel">
-								<div class="info">
-									<span class="info-txt d-block"><label>Name:</label> {{user_details.f_name}} {{user_details.l_name}}</span>
-									<span class="info-txt d-block"><label>Username:</label> {{user_details.username}}</span>
-									<span class="info-txt d-block"><label>Permission:</label> {{role.permission}}</span>
-								</div>
-							</div>
-							<nav class='nav-side-bar'>
-								<ul>
-									<list-items v-for="(l,i) in side_list" :name="l['name']" :key="i" 
-									:icon="l['icon']"
-									:route="l['href']"
-									/>
-								</ul>
-							</nav>
-						</aside>`,
-			beforeMount() {
-				// console.log(this.user_details);
-			}
-		}
+
+		return this.sb._side_bar();
 	}
 	_make_side_list(){
-		return {
-			template : `<li><a :href="route"><i :class="icon" ></i><span>{{name}}</span></a></li>`,
-			props : ['name','icon','route']
-		}
+		return this.sb._side_bar_list()
 	}
 	_make_right_list(){
-		// <li>
-		// 		<a style="cursor:pointer" href="javascript:void(0)" @click="logout" class='nav-link'>
-		// 			<label style="cursor:pointer">logout</label>
-		// 		</a>
-		// </li>
 		return {
 			props : ['label'],
 			emit : ['logout'],
