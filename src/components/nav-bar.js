@@ -16,6 +16,8 @@ export default class NavBar {
 		nav.component('nav-bar-component',nav_comp._make_nav())
 		nav.component('msb-component',nav_comp._make_side_bar())
 		nav.component('list-items',nav_comp._make_side_list())
+		nav.component('nav-left',nav_comp._make_left_list())
+		nav.component('nav-right',nav_comp._make_right_list())
 		nav.mount("#nav-app");
 	}
 	

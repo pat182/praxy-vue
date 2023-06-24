@@ -1,57 +1,21 @@
+import SideBarComponent from './side-bar-component';
 
 export default class NavBarComponent {
 	constructor(userDetails){
+		
 		this.ud = userDetails;
+		this.sb = new SideBarComponent(this);
 	}
 	_make_nav (){
 
 		let self = this;
 		self.ud
 		return {
-			template : `<nav id='nav' class="main-header navbar navbar-expand navbar-light">
-							<ul class="navbar-nav">
-								<li class='nav-item'>
-									<a href="javascript:void(0)" class='nav-link'>
-										<i class="fas fa-bars"></i>
-									</a>
-								</li>
-							</ul>
-							<ul class="navbar-nav navbar-right">
-								<li>
-									<a style="cursor:pointer" href="javascript:void(0)" @click="logout" class='nav-link'>
-										<label style="cursor:pointer">logout</label>
-									</a>
-								</li>
-							</ul>
-						</nav>
-						<msb-component :brand="brand" :user_details="user_details" :role="role" :side_list="side_list" />
-						`,
-			components : ['msb-component'],
-			methods : {
-				logout(){
-					$('#pre-loader').show();
-					fetch(core.api_url+"/logout",{
-						method : "POST",
-						headers : {
-							'Accept' : 'application/json',
-							'Content-Type' : 'application/json',
-							'Authorization' : 'Bearer ' + self.ud.token
-						},
-					}).then((res) => {
-						core._erase_cookie('user_details');
-						core._erase_cookie('token');
-						location.href = core.main_path;
-					})
-					
-					
-
-				},
-			},
 			data() {
 				return {
 					page : core.main_path,
-					settings : {
-						is_hidden : true
+					settings_sb : {
+						is_hidden : false 
 					},
 					brand : 'PRAXY',
 					user_details : {
@@ -70,56 +34,117 @@ export default class NavBarComponent {
 						},
 						{
 							name : 'Categories',
-							icon : 'fa-solid fa-box-open',
+							icon : 'fa-solid fa-cube',
 							href : '#/category'
+						},
+						{
+							name : 'Products',
+							icon : 'fa-solid fa-box-open',
+							href : '#/product'
+						}
+					],
+					right_list : [
+						{
+							label : 'logout',
+						}
+					],
+					left_list : [
+						{
+							label : "Home"
 						}
 					]
 				}		
 			},
-		}
+			methods : {
+				toggle_side_bar(){
+					this.settings_sb.is_hidden = !this.settings_sb.is_hidden;
+					if(this.settings_sb.is_hidden){
+						$('#nav').css('margin-left',0);
+						$('.main-container').css('margin-left',0);
+					}else{
+						$('#nav').css('margin-left','27.9rem');
+						$('.main-container').css('margin-left','28rem');
+					}
+					
+				},
+				logout(){
+					$('#pre-loader').show();
+					fetch(core.api_url+"/logout",{
+						method : "POST",
+						headers : {
+							'Accept' : 'application/json',
+							'Content-Type' : 'application/json',
+							'Authorization' : 'Bearer ' + self.ud.token
+						},
+					}).then((res) => {
+						core._erase_cookie('user_details');
+						core._erase_cookie('token');
+						location.href = core.main_path;
+					})
+					
+				},
+			},
+			components : ['msb-component', 'nav-right','nav-left'],
+			template : `<nav id='nav' class="main-header navbar navbar-expand navbar-light">
+							<ul class="navbar-nav">
+								<li class='nav-item burger-btn'>
+									<a @click="toggle_side_bar()" href="javascript:void(0)" class='nav-link'>
+										<i class='fas fa-bars'></i>
+									</a>
+								</li>
+								<nav-left v-for="(ll,li) in left_list"
+								:label = "ll['label']"
+								:key="li"/>
+							</ul>
+							<ul class="navbar-nav navbar-right">
+								<nav-right v-for="(rl,i) in right_list" 
+								@logout=logout()
+								:label="rl['label']" 
+								:key="i"/>
+							</ul>
+						</nav>
+						<Transition name="slide">
+						<msb-component 
+							:settings="settings_sb"
+							:brand="brand" 
+							:user_details="user_details" 
+							:role="role" 
+							:side_list="side_list" />
+						</Transition>
+			`
 
+		}
 	}
 	_make_side_bar(){
-		let self = this;
-		return {
-			components : ['list-items'],
-			props : ['brand','user_details', 'role' , 'page', "side_list"],
-			template : `
-						<aside id='msb' class='main-sidebar sidebar-dark-primary'>
-							<a :href="page" class="brand-link">
-								<i class="brand-image fa-solid fa-code"></i>
-								<span class="brand-text font-weight-light">{{brand}}</span>
-							</a>
-							<div class="user-panel">
-								<div class="info">
-									<span class="info-txt d-block"><label>Name:</label> {{user_details.f_name}} {{user_details.l_name}}</span>
-									<span class="info-txt d-block"><label>Username:</label> {{user_details.username}}</span>
-									<span class="info-txt d-block"><label>Permission:</label> {{role.permission}}</span>
-								</div>
-							</div>
-							<nav class='nav-side-bar'>
-								<ul>
-									<list-items v-for="(l,i) in side_list" :name="l['name']" :key="i" 
-									:icon="l['icon']"
-									:route="l['href']"
-									/>
-								</ul>
-							</nav>
-						</aside>`,
-			beforeMount() {
-				// console.log(this.user_details);
-			}
-		}
+
+		return this.sb._side_bar();
 	}
 	_make_side_list(){
+
+		return this.sb._side_bar_list()
+	}
+	_make_left_list(){
+
 		return {
-			template : `<li><a :href="route"><i :class="icon" ></i><span>{{name}}</span></a></li>`,
-			props : ['name','icon','route']
+			props : ['label'],
+			template : `<li class='nav-item'>
+							<a href="javascript:void(0)" class='nav-link left-nav' v-html=label>
+
+							</a>
+						</li>`,
 		}
 	}
-	_make_nav_list(){
+	_make_right_list(){
+		return {
+			props : ['label'],
+			emit : ['logout'],
+			template : `<li>
+							<a @click="$emit('logout')" style="cursor:pointer" href="javascript:void(0)" class='nav-link'>
+								<label style="cursor:pointer">{{label}}</label>
+							</a>
+						</li>`
 
-
+		}
 
 	}
 
