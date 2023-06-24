@@ -50,9 +50,9 @@ export default class NavBarComponent {
 						}
 					],
 					left_list : [
-						{
-							label : "Home"
-						}
+						// {
+						// 	label : "Home"
+						// }
 					]
 				}		
 			},

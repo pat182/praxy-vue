@@ -159,7 +159,7 @@
 
 .slide-enter-from,
 .slide-leave-to {
-  transform: translateX(-250px);
+  transform: translateX(-300px);
 }
 
 
