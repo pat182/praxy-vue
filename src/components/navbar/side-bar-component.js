@@ -4,6 +4,8 @@ export default class SideBarComponent{
 	}
 	_side_bar(){
 		let self = this.nav;
+		// <span class="info-txt d-block"><label>Username:</label> {{user_details.username}}</span>
+		// 							<span class="info-txt d-block"><label>Permission:</label> {{role.permission}}</span>
 		return {
 			// v-show="settings.is_hidden" 
 			// emit : ['toggleSb'],
@@ -17,9 +19,8 @@ export default class SideBarComponent{
 							</a>
 							<div class="user-panel">
 								<div class="info">
-									<span class="info-txt d-block"><label>Name:</label> {{user_details.f_name}} {{user_details.l_name}}</span>
-									<span class="info-txt d-block"><label>Username:</label> {{user_details.username}}</span>
-									<span class="info-txt d-block"><label>Permission:</label> {{role.permission}}</span>
+									<img class="profile-img" :src=user_details.p_path />
+									<span class="info-txt">{{user_details.f_name}} {{user_details.l_name}}</span>
 								</div>
 							</div>
 							<nav class='nav-side-bar'>
@@ -32,7 +33,7 @@ export default class SideBarComponent{
 							</nav>
 						</aside>`,
 			beforeMount() {
-				console.log(this.settings.is_hidden);
+				// console.log(this.settings.is_hidden);
 			}
 		}
 	}

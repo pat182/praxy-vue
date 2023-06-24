@@ -20,8 +20,9 @@ export default class NavBarComponent {
 					brand : 'PRAXY',
 					user_details : {
 						username : self.ud.username,
-						f_name : self.ud.f_name,
-						l_name : self.ud.l_name,
+						f_name : String(self.ud.f_name).initCap(), //"Patrick",
+						l_name : String(self.ud.l_name).initCap(),
+						p_path : self.ud.p_path ? self.ud.p_path : "/public/blankpic.png" //
 					},
 					role : {
 						permission : String(self.ud.role.permission).initCap()
@@ -49,9 +50,9 @@ export default class NavBarComponent {
 						}
 					],
 					left_list : [
-						{
-							label : "Home"
-						}
+						// {
+						// 	label : "Home"
+						// }
 					]
 				}		
 			},
@@ -111,7 +112,10 @@ export default class NavBarComponent {
 							:role="role" 
 							:side_list="side_list" />
 						</Transition>
-			`
+			`,
+			beforeMount(){
+				// console.log(this.user_details.p_path)
+			}
 
 		}
 	}
