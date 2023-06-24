@@ -14,8 +14,8 @@ export default class NavBarComponent {
 			data() {
 				return {
 					page : core.main_path,
-					settings : {
-						is_hidden : true
+					settings_sb : {
+						is_hidden : false 
 					},
 					brand : 'PRAXY',
 					user_details : {
@@ -34,23 +34,39 @@ export default class NavBarComponent {
 						},
 						{
 							name : 'Categories',
-							icon : 'fa-solid fa-box-open',
+							icon : 'fa-solid fa-cube',
 							href : '#/category'
+						},
+						{
+							name : 'Products',
+							icon : 'fa-solid fa-box-open',
+							href : '#/product'
 						}
 					],
 					right_list : [
 						{
-							label : 'logout'
+							label : 'logout',
 						}
 					],
 					left_list : [
 						{
-							label : "<i class='fas fa-bars'></i>"
+							label : "Home"
 						}
 					]
 				}		
 			},
 			methods : {
+				toggle_side_bar(){
+					this.settings_sb.is_hidden = !this.settings_sb.is_hidden;
+					if(this.settings_sb.is_hidden){
+						$('#nav').css('margin-left',0);
+						$('.main-container').css('margin-left',0);
+					}else{
+						$('#nav').css('margin-left','27.9rem');
+						$('.main-container').css('margin-left','28rem');
+					}
+					
+				},
 				logout(){
 					$('#pre-loader').show();
 					fetch(core.api_url+"/logout",{
@@ -66,13 +82,16 @@ export default class NavBarComponent {
 						location.href = core.main_path;
 					})
 					
-					
-
 				},
 			},
 			components : ['msb-component', 'nav-right','nav-left'],
 			template : `<nav id='nav' class="main-header navbar navbar-expand navbar-light">
 							<ul class="navbar-nav">
+								<li class='nav-item burger-btn'>
+									<a @click="toggle_side_bar()" href="javascript:void(0)" class='nav-link'>
+										<i class='fas fa-bars'></i>
+									</a>
+								</li>
 								<nav-left v-for="(ll,li) in left_list"
 								:label = "ll['label']"
 								:key="li"/>
@@ -84,7 +103,14 @@ export default class NavBarComponent {
 								:key="i"/>
 							</ul>
 						</nav>
-						<msb-component :brand="brand" :user_details="user_details" :role="role" :side_list="side_list" />
+						<Transition name="slide">
+						<msb-component 
+							:settings="settings_sb"
+							:brand="brand" 
+							:user_details="user_details" 
+							:role="role" 
+							:side_list="side_list" />
+						</Transition>
 			`
 
 		}
@@ -102,7 +128,7 @@ export default class NavBarComponent {
 		return {
 			props : ['label'],
 			template : `<li class='nav-item'>
-							<a href="javascript:void(0)" class='nav-link' v-html=label>
+							<a href="javascript:void(0)" class='nav-link left-nav' v-html=label>
 
 							</a>
 						</li>`,

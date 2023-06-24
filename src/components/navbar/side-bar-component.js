@@ -5,10 +5,12 @@ export default class SideBarComponent{
 	_side_bar(){
 		let self = this.nav;
 		return {
+			// v-show="settings.is_hidden" 
+			// emit : ['toggleSb'],
 			components : ['list-items'],
-			props : ['brand','user_details', 'role' , 'page', "side_list"],
+			props : ['brand','user_details', 'role' , 'page', "side_list" , "settings"],
 			template : `
-						<aside id='msb' class='main-sidebar sidebar-dark-primary'>
+						<aside v-if="!settings.is_hidden" id='msb' class='main-sidebar sidebar-dark-primary'>
 							<a :href="page" class="brand-link">
 								<i class="brand-image fa-solid fa-code"></i>
 								<span class="brand-text font-weight-light">{{brand}}</span>
@@ -30,7 +32,7 @@ export default class SideBarComponent{
 							</nav>
 						</aside>`,
 			beforeMount() {
-				// console.log(this.user_details);
+				console.log(this.settings.is_hidden);
 			}
 		}
 	}
