@@ -1,26 +1,29 @@
 import Product from './Products/product';
 import Dashboard from './Dashboard/dashboard';
 import Category from './Categories/category'
+import {sec_head_comp} from './components/section-header-comp'
 
 export default class Router{
 	constructor(router){
+		this.app = core.vue.createApp({})
 		this.router = router;
 		this.routes = [
-		  {	path : '/',component:  new Dashboard()._render()},
-		  { path: '/category', component: new Category()._render()},
-		  { path: '/dashboard', component:  new Dashboard()._render()},
-		  { path: '/product', component: new Product()._render() },
+		  {	path : '/',component:  new Dashboard(this.app)._render()},
+		  { path: '/category', component: new Category(this.app)._render()},
+		  { path: '/dashboard', component:  new Dashboard(this.app)._render()},
+		  { path: '/product', component: new Product(this.app)._render() },
 		]
 	}
 	_init_router(){
 
-		const app = core.vue.createApp({})
+		
 		let router = this.router.createRouter({
 			history : this.router.createWebHashHistory(),
 			routes : this.routes
 		})
-		app.use(router);
-		app.mount('#main-container')
+		this.app.use(router);
+		this.app.component('header-component',sec_head_comp);
+		this.app.mount('#main-container')
 
 	}
 

@@ -9,25 +9,26 @@ export default class Dashboard {
 
 	_render(){
 		
-		// let dash = this.dash.createApp({});
 		return {
-			template : `<div class='content-header'>
-				        	<h1>Dashboard</h1>  
-				      </div>
-				      <section class='content-section'>
-
-				      </section>`,
-			methods : {
-				// dashboard(){
-				// 	this.$router.push('#/dashboard')
-				// }
+			data(){
+				return {
+					title : 'Dashboard'
+				}
 			},
+			components : ['header-component'],
+			methods : {
+				
+			},
+			template : `
+					  <header-component :title="title"/>
+				      <section class='content-section'>
+				      
+				      </section>`,
 			beforeMount(){
 				console.log(this.$router);
 			}
 		}
 		return dash;
-		// dash.mount('#main-container');
 		
 	}
 

@@ -8,14 +8,21 @@ export default class Category {
 	}
 	_render(){
 		
-		// let prod = this.prod.createApp({});
 		return {
-			template : `<div class='content-header'>
-				        	<h1>Category</h1>  
-				      </div>
+			data(){
+				return {
+					title : 'Category'
+				}
+			},
+			components : ['header-component'],
+			template : `
+					  <header-component :title="title"/>
 				      <section class='content-section'>
 
-				      </section>`
+				      </section>`,
+			beforeMount(){
+				console.log(this.$router);
+			}
 		}
 		// prod.mount('#main-container');
 
