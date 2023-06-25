@@ -86,7 +86,7 @@ a:focus{
       position: absolute;
       inset: 0px;
       border-radius: 50%;
-      border: 5px solid #286090;
+      border: 5px solid #343a40;
       animation: prixClipFix 2s linear infinite;
     }
 
@@ -123,4 +123,7 @@ a:focus{
 .pre-container > .loader{
     width: 30px !important;
     height: 30px !important;
+}
+#body-loader > .pre-container{
+    /*float: left;*/
 }

@@ -22,7 +22,7 @@ export default class NavBarComponent {
 						username : self.ud.username,
 						f_name : String(self.ud.f_name).initCap(), //"Patrick",
 						l_name : String(self.ud.l_name).initCap(),
-						p_path : self.ud.p_path ? self.ud.p_path : "/public/blankpic.png" //
+						p_path : self.ud.p_path ? self.ud.p_path : "/blankpic.png" //
 					},
 					role : {
 						permission : String(self.ud.role.permission).initCap()
