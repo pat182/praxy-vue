@@ -11,12 +11,20 @@ export default class Product {
 		
 		// let prod = this.prod.createApp({});
 		return {
-			template : `<div class='content-header'>
-				        	<h1>Product</h1>  
-				      </div>
+			data(){
+				return {
+					title : 'Product'
+				}
+			},
+			components : ['header-component'],
+			template : `
+					  <header-component :title="title"/>
 				      <section class='content-section'>
 
-				      </section>`
+				      </section>`,
+			beforeMount(){
+				console.log(this.$router);
+			}
 		}
 		// prod.mount('#main-container');
 
