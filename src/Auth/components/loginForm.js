@@ -133,7 +133,7 @@ export default class LoginFormComponent{
 							
 							core._create_cookie('token',d.data.token,e)
 							core._create_cookie('user_details',JSON.stringify(d.data),e);
-							location.href = core.main_path +'/main.html';
+							location.href = core.main_path +'/main.html#dashboard';
 						}else{
 							$('#pre-loader').hide();
 							this.errors = {};
