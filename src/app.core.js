@@ -3,6 +3,7 @@ class AppCore {
 
 	constructor(config){
 		this.vue = Vue
+		this.vue_router = VueRouter
 		this.api_url = __config.api_url
 		this.main_path = __config.main_path
 	}

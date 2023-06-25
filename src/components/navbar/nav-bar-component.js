@@ -29,7 +29,7 @@ export default class NavBarComponent {
 					},
 					side_list : [
 						{
-							name : 'DashBoard', 
+							name : 'Dashboard', 
 							icon : 'fa-solid fa-dashboard',
 							href : '#/dashboard' 
 						},

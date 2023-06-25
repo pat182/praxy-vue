@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praxy</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
     <script src="https://unpkg.com/vue-router@4"></script>
-
-     <link rel="stylesheet" type="text/css" href="src/assets/main.css">
+  
+    <link rel="stylesheet" type="text/css" href="src/assets/main.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -28,21 +28,15 @@
         
         <nav-bar-component />
         
-        
     </div>
-    <div class='content-wrapper main-container'>
-        <!-- <contet-component /> -->
-      <div class='content-header'>
-        <h1>Dashboard</h1>  
-      </div>
-      <section class='content-section'>
-
-      </section> 
+    <div id="main-container" class='content-wrapper main-container'>
+        <router-view></router-view>
     </div>
 
     <!-- scripts -->
     <script type="text/javascript" src="config.js"></script>
-    <script type="module" src="src/components/nav-bar.js"></script>
+    <!-- ==== -->
+    
     <script defer type="module" src="src/app.event.js"></script>
     <script type="text/javascript" src="src/app.core.js"></script>
 
