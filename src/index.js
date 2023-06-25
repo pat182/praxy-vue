@@ -5,7 +5,7 @@ window.onload = (event) =>{
 	user_details = core._get_cookie('user_details');
     
 	if(token){
-		location.href = core.main_path +'/main.html#/dashboard';
+		location.href = core.main_path +'/main.html';
 	}else{
 		let a = new Auth();
 		a._render()

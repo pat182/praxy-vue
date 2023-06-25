@@ -19,6 +19,9 @@ a {
 a:hover{
    text-decoration: none !important;
 }
+a:focus{
+    text-decoration: none !important;
+}
 .margin-top-5{
     margin-top: 5px;
 }

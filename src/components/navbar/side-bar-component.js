@@ -40,7 +40,7 @@ export default class SideBarComponent{
 	_side_bar_list(){
 		return {
 
-			template : `<li><a :href="route"><i :class="icon" ></i><span>{{name}}</span></a></li>`,
+			template : `<li><a class='side-bar-router' :href="route"><i :class="icon" ></i><span>{{name}}</span></a></li>`,
 			props : ['name','icon','route']
 			
 		}

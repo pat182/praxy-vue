@@ -31,17 +31,17 @@ export default class NavBarComponent {
 						{
 							name : 'Dashboard', 
 							icon : 'fa-solid fa-dashboard',
-							href : '#dashboard' 
+							href : '#/dashboard' 
 						},
 						{
 							name : 'Categories',
 							icon : 'fa-solid fa-cube',
-							href : '#category'
+							href : '#/category'
 						},
 						{
 							name : 'Products',
 							icon : 'fa-solid fa-box-open',
-							href : '#product'
+							href : '#/product'
 						}
 					],
 					right_list : [
