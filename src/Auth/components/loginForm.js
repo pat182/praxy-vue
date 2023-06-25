@@ -1,5 +1,3 @@
-
-
 export default class LoginFormComponent{
 
 	_make_login_form(){
@@ -156,7 +154,7 @@ export default class LoginFormComponent{
 	_make_roles(){
 		return {
 			template : `<div @click="$emit('set_role')" class="signin-user-role-el pull-left" :data-perm="perm" :data-id="role_id" :class="{active}">
-							<a href="#">{{perm}}</a>
+							<a>{{perm}}</a>
 						</div>`,
 			props : ["perm","role_id", "active"],
 			emit : ['set_role'],

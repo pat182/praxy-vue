@@ -8,7 +8,7 @@ export default class Auth {
 		
 	}
 
-	_render_log_in_form(){
+	_render(){
 		
 		let log_in = this.form.createApp({});
 		let login_com = new LoginFormComponent(log_in);
@@ -20,12 +20,7 @@ export default class Auth {
 		log_in.mount('#auth-page');
 	}
 
-	
-
 }
-const auth = new Auth()
-
-auth._render_log_in_form()
 
 
 
