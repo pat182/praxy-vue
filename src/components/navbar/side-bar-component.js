@@ -16,6 +16,7 @@ export default class SideBarComponent{
 							<a :href="page" class="brand-link">
 								<i class="brand-image fa-solid fa-code"></i>
 								<span class="brand-text font-weight-light">{{brand}}</span>
+								
 							</a>
 							<div class="user-panel">
 								<div class="info">

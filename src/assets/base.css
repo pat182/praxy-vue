@@ -51,6 +51,9 @@ a:focus{
 .hide-el{
     display:none;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
 .align-items-center{
     text-align: center;
 }
@@ -127,3 +130,5 @@ a:focus{
 #body-loader > .pre-container{
     /*float: left;*/
 }
+
+
