@@ -156,5 +156,8 @@ a:focus{
 #body-loader > .pre-container{
     /*float: left;*/
 }
+.swal2-popup{
+    font-size: 1em;
+}
 
 

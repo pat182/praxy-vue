@@ -2,6 +2,7 @@ import {prod_comp,prod_filter}  from './components/product-component.js'
 import {filter_btn} from '.././components/filter-btn-component.js'
 import {paginate_btn} from '.././components/paginate-btn-component.js'
 import {auto_complete} from '.././components/auto-complete-input.js'
+import Swal from 'sweetalert2';
 
 export default class Product {
 
@@ -15,7 +16,7 @@ export default class Product {
 
 	_render(){
 		let self = this;
-		
+		this.prod.config.productionTip = false;
 		// this.prod.component('auto-complete',auto_complete);
 		this.prod.component('product-component',prod_comp);
 		this.prod.component('filter-btn', filter_btn );
@@ -102,11 +103,9 @@ export default class Product {
 							'Authorization' : 'Bearer ' + self.token
 						}
 					}).then((res) => {
-
 						return res.json();
 					}).then((d) => {
 						if(!d.hasOwnProperty('errors') && !d.hasOwnProperty('error_code')){
-							console.log('hgffhgf');
 							this.err.no_data = false;
 							this.products = d.data.data
 							this.page_details.current_page = d.data.current_page
@@ -123,6 +122,48 @@ export default class Product {
 						$('#body-loader').hide()
 						
 					});	
+				},
+				async del(id){
+					await fetch(core.api_url+"/product/" +id, {
+						method : "DELETE",
+						headers : {
+							'Accept' : 'application/json',
+							'Content-Type' : 'application/json',
+							'Authorization' : 'Bearer ' + self.token
+						}
+					}).then((res) => {
+
+						return res.json();
+
+					}).then((d) =>{
+						if(!d.hasOwnProperty('errors') && !d.hasOwnProperty('error_code')){
+							let i = this.products.findIndex( ({ id }) => id == d.data.id)
+							this.products.splice(i, 1);
+							Swal.fire(
+							    'Deleted!',
+							    String(d.data.name).initCap() + ' successfully deleted',
+							    'success'
+							)
+						}
+						
+					});	
+				},
+				async rem(name,id){
+					
+					await Swal.fire({
+					  title: 'Are you sure?!',
+					  text: 'Are you sure you want to remove ' + name,
+					  icon: 'warning',
+					  heightAuto : false,
+					  showCancelButton: true,
+					  confirmButtonColor: '#fdb917',
+					  confirmButtonText: 'yes'
+					}).then((result) => {
+					  	if (result.isConfirmed) {
+					  		this.del(id)
+					  	}
+					});
+					
 				}
 			},
 			template : `
@@ -154,6 +195,7 @@ export default class Product {
 				        	<h1 v-if="err.no_data">No Data</h1>
 					      	<product-component 
 					      	v-for="(p,i) in products" :key="p.id"
+					      	@del="rem(String(p.name).initCap(), p.encId)"
 					      	:product_name="String(p.name).initCap()" 
 					      	:p_src="p.product_photo.length ? storage+p.product_photo[0].path : '/no-image.png' " 
 					      	:category = String(p.category.name).initCap()

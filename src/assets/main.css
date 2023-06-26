@@ -287,11 +287,24 @@
 	/*text-align: center;*/
 }
 .product-details{
-	display: flex;
-	
+/*	display: flex;*/
+	margin-top: 5px;
 	/*background-color: blue;*/
 	width: 15rem;
 	/*justify-content: center;*/
+}
+.product-details > a{
+	/*width: 100%;*/
+}
+.delete-product{
+	background-color: #343a40;
+	color: rgba(255,255,255,.8);
+	position: absolute;
+	top: -3px;
+}
+/*#fae025*/
+.delete-product:hover{
+	color: rgba(255,255,255,.8) !important;
 }
 .product-details > span{
 	color: #343a40;

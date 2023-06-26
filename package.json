@@ -1,7 +1,7 @@
 {
   "name": "praxy-vue",
   "version": "1.0.0",
-  "main" : "index.html",
+  "main": "index.html",
   "description": "vue",
   "scripts": {
     "dev": "vite",
@@ -13,5 +13,8 @@
     "vite": "^4.3.9"
   },
   "author": "patrick chua",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "vue-sweetalert2": "^5.0.5"
+  }
 }
