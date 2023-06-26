@@ -7,19 +7,25 @@ export default class Router{
 	constructor(router){
 		this.app = core.vue.createApp({})
 		this.router = router;
-		this.routes = [
-		  {	path : '/',component:  new Dashboard(this.app)._render()},
-		  { path: '/category', component: new Category(this.app)._render()},
-		  { path: '/dashboard', component:  new Dashboard(this.app)._render()},
-		  { path: '/product', component: new Product(this.app)._render() },
-		]
+		this.dashboard = new Dashboard(this.app);
+		this.product = new Product(this.app);
+		this.category = new Category(this.app);
+
+		
 	}
 	_init_router(){
 
+		let routes = [
+		  {	path : '/',component:  this.dashboard._render()},
+		  { path: '/category', component: this.category._render()},
+		  { path: '/dashboard', component:  this.dashboard._render()},
+		  { path: '/product', component: this.product._render() },
+		  { path: '/product/add', component: this.product._render_add() },
+		]
 		
 		let router = this.router.createRouter({
 			history : this.router.createWebHashHistory(),
-			routes : this.routes
+			routes : routes
 		})
 		this.app.use(router);
 		this.app.component('header-component',sec_head_comp);
