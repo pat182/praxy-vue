@@ -6,4 +6,4 @@
 
 -change config.js file that suits your environment
 
--use the mapp-api
+-use the mapp-api https://github.com/pat182/mapp-api
