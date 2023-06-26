@@ -30,12 +30,28 @@ export default class Product {
 					filter_settings : {
 						label :  'filter products',
 						icon_class : "fas fa-angle-double-right",
-						is_open : true,
+						is_open : false,
 						input_fltr_class : 'prod-filter-input'
 					},
-					filter_value : {
-						n_or_d : '',
-						category : ''
+					filter_inputs : [
+						{
+							label : 'Name',
+							value : ''
+						},
+						{
+							label : 'Description',
+							value : ''
+						},
+						// {
+												
+						// 	label : 'Category',
+						// 	value : '',
+						// 	type : 'auto_complete'
+						// }
+
+					],
+					err : {
+						no_data : false
 					},
 					products : [],
 					storage : self.api_storage,
@@ -63,12 +79,19 @@ export default class Product {
 					}
 
 				},
+				reset_filter(){
+					for(let i in this.filter_inputs){
+						this.filter_inputs[i].value = '';
+					}
+					this.get()
+				},
 				search(){
-					
-					console.log(this.filter_value.n_or_d);
+					let q_string = "?name=" +this.filter_inputs[0].value+
+					"&description="+this.filter_inputs[1].value
+					// "&category="+this.filter_inputs[2].value;
+					this.get(q_string)
 				},
 				async get(params = ''){
-					// console.log(params);
 					$('#body-loader').show();
 					$('.pagination-btn').hide()
 					$('.product-content-section').hide();
@@ -79,16 +102,26 @@ export default class Product {
 							'Authorization' : 'Bearer ' + self.token
 						}
 					}).then((res) => {
+
 						return res.json();
-					}).then((res) => {
-						this.products = res.data.data
-						this.page_details.current_page = res.data.current_page
-						this.page_details.last_page = res.data.last_page
+					}).then((d) => {
+						if(!d.hasOwnProperty('errors') && !d.hasOwnProperty('error_code')){
+							console.log('hgffhgf');
+							this.err.no_data = false;
+							this.products = d.data.data
+							this.page_details.current_page = d.data.current_page
+							this.page_details.last_page = d.data.last_page
+							$('.pagination-btn').show()
+						}else{
+							$('.pagination-btn').hide()
+							this.err.no_data = true;
+							this.products = [];
+							this.page_details = {}
+						}
+						
 						$('.product-content-section').show()
-						$('.pagination-btn').show()
 						$('#body-loader').hide()
 						
-						// console.log(this.page_details)
 					});	
 				}
 			},
@@ -98,13 +131,17 @@ export default class Product {
 					  :icon_class="filter_settings.icon_class"
 					  :label="filter_settings.label"/>
 					  <Transition name="slide-filter">
-				      	<product-filter 
-				      	@search="search()"
-				      	@reset="get()"
-				      	v-if="filter_settings.is_open"
-				      	:model="filter_value.n_or_d"
-				      	:cls="filter_settings.input_fltr_class"/>
-
+					  <div v-if="filter_settings.is_open" class='product-filter-container'>
+					  	<product-filter v-for="(fi,i) in filter_inputs" :key="i"
+					  	:label = "fi.label"
+					  	v-model = "fi.value"
+					  	:cls="filter_settings.input_fltr_class"
+					  	/>
+				      	<div class='product-btn-container container-fluid pull-right'>
+				      		<a @click='search()' class='col-xs-6 a-btn prevent-select'>Search</a>
+				      		<a @click="reset_filter()" class='col-xs-6 a-btn prevent-select'>Reset</a>
+				      	</div>
+				      </div>
 				      </Transition>
 				      <section class='content-section'>
 				      	<div id="body-loader" class="">
@@ -114,6 +151,7 @@ export default class Product {
 				        </div>
 
 				        <div class='container-fluid product-content-section'>
+				        	<h1 v-if="err.no_data">No Data</h1>
 					      	<product-component 
 					      	v-for="(p,i) in products" :key="p.id"
 					      	:product_name="String(p.name).initCap()" 
