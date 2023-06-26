@@ -1,6 +1,7 @@
 
 export const prod_comp = {
 	props : ['product_name', 'p_src' , 'category'],
+	emit : ['del'],
 	template : `<div class="col-lg-2 col-md-4 prod-item-container">
 					<img class="product-image cursor-pointer" :src="p_src" />
 				    <div class='product-details'>
@@ -8,6 +9,9 @@ export const prod_comp = {
 				    </div>
 				    <div class='product-details'>
 				    	<span>{{category}}</span>
+				   	</div>
+				   	<div class='delete-product product-details'>
+				   		<a @click="$emit('del')" class='delete-product btn'><i class="fas fa-trash" ></i></a>
 				   	</div>
 				</div>`
 }
