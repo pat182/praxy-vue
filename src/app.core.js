@@ -45,6 +45,15 @@ class AppCore {
 			return false;
 		}
 	}
+	_auto_complete($el) {
+
+		
+	
+		// $el.autocomplete({
+		
+		// });
+		// console.log('_auto_complete');
+	}
 
 }
 

@@ -22,6 +22,12 @@ a:hover{
 a:focus{
     text-decoration: none !important;
 }
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 .margin-top-5{
     margin-top: 5px;
 }
@@ -68,8 +74,28 @@ a:focus{
    outline: 0 !important;
    border: none !important;
 }
+.btn:focus:not(:active) {
+     /*background-color: red !important;*/
+}
 .btn{
+    background-color: #343a40;
     border: none;
+}
+.a-btn{
+  display: block;
+  cursor: pointer;
+  padding: 5px;
+  background-color: #343a40;
+  border: none;  
+  text-align: center;
+}
+.filter-txt{
+    cursor: pointer;
+    font-size: .9em;
+    margin-left: 2.2rem;
+}
+.filter-txt > i{
+    font-size: .9em;
 }
 /*loader*/
 .loader-cont{

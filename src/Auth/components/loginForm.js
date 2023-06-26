@@ -180,7 +180,7 @@ export default class LoginFormComponent{
 
 					},
 					set(val){
-
+						console.log('test');
 						this.$emit('update:modelValue', val)
 
 					}
