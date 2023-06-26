@@ -1,5 +1,7 @@
 import {prod_comp,prod_filter}  from './components/product-component.js'
+import {filter_btn} from '.././components/filter-btn-component.js'
 import {paginate_btn} from '.././components/paginate-btn-component.js'
+import {auto_complete} from '.././components/auto-complete-input.js'
 
 export default class Product {
 
@@ -14,13 +16,27 @@ export default class Product {
 	_render(){
 		let self = this;
 		
+		// this.prod.component('auto-complete',auto_complete);
 		this.prod.component('product-component',prod_comp);
+		this.prod.component('filter-btn', filter_btn );
 		this.prod.component('product-filter',prod_filter);
 		this.prod.component('pagination-component',paginate_btn);
+
 		return {
+			
 			data(){
 				return {
 					title : 'Products',
+					filter_settings : {
+						label :  'filter products',
+						icon_class : "fas fa-angle-double-right",
+						is_open : true,
+						input_fltr_class : 'prod-filter-input'
+					},
+					filter_value : {
+						n_or_d : '',
+						category : ''
+					},
 					products : [],
 					storage : self.api_storage,
 					page_details : {}
@@ -28,11 +44,29 @@ export default class Product {
 			},
 			components : [
 				'header-component',
+				'filter-btn',
 				'product-filter',
 				'product-component',
 				'pagination-component'
 			],
 			methods : {
+				toggle_filter(){
+					let status = this.filter_settings.is_open = this.filter_settings.is_open ? false : true;
+					if(status){
+
+						this.filter_settings.icon_class = "fas fa-angle-double-down"
+						
+					}else{
+
+						this.filter_settings.icon_class = "fas fa-angle-double-right"
+						
+					}
+
+				},
+				search(){
+					
+					console.log(this.filter_value.n_or_d);
+				},
 				async get(params = ''){
 					// console.log(params);
 					$('#body-loader').show();
@@ -54,13 +88,24 @@ export default class Product {
 						$('.pagination-btn').show()
 						$('#body-loader').hide()
 						
-						console.log(this.page_details)
+						// console.log(this.page_details)
 					});	
 				}
 			},
 			template : `
 					  <header-component :title="title"/>
-				      <product-filter />
+					  <filter-btn @toggle-filter="toggle_filter()"
+					  :icon_class="filter_settings.icon_class"
+					  :label="filter_settings.label"/>
+					  <Transition name="slide-filter">
+				      	<product-filter 
+				      	@search="search()"
+				      	@reset="get()"
+				      	v-if="filter_settings.is_open"
+				      	:model="filter_value.n_or_d"
+				      	:cls="filter_settings.input_fltr_class"/>
+
+				      </Transition>
 				      <section class='content-section'>
 				      	<div id="body-loader" class="">
 				        	<div class="pre-container">
@@ -101,6 +146,7 @@ export default class Product {
 				      </section>
 				      `,
 			beforeMount(){
+				
 				this.get();
 			}
 
