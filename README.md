@@ -5,3 +5,5 @@
 -npm run dev
 
 -change config.js file that suits your environment
+
+-use the mapp-api
