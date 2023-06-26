@@ -163,14 +163,18 @@ export default class Product {
 						<pagination-component 
 							:current="page_details.current_page"
 							:last="page_details.last_page"
-							@next_page="get('?page='+
+							@next_page="get('?name='+filter_inputs[0].value+
+							'&description='+filter_inputs[1].value+
+							'&page='+
 
 							(page_details.current_page == this.page_details.last_page
 							? 1  : page_details.current_page+1) 
 
 							)"
 
-							@prev_page="get('?page='+
+							@prev_page="get('?name='+filter_inputs[0].value+
+							'&description='+filter_inputs[1].value+
+							'&page='+
 
 							(page_details.current_page == 1
 							? page_details.last_page : page_details.current_page+-1)
@@ -178,8 +182,13 @@ export default class Product {
 							)"
 
 
-							@last_page="get('?page='+page_details.last_page)"
-							@first_page="get('?page=1')"
+							@last_page="get('?name='+filter_inputs[0].value+
+							'&description='+filter_inputs[1].value+
+							'&page='+page_details.last_page)"
+							
+							@first_page="get('?name='+filter_inputs[0].value+
+							'&description='+filter_inputs[1].value+
+							'&page=1')"
 						/>
 				      </section>
 				      `,
