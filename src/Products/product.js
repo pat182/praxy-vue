@@ -4,6 +4,7 @@ import {paginate_btn} from '.././components/paginate-btn-component.js'
 import {auto_complete} from '.././components/auto-complete-input.js'
 import Swal from 'sweetalert2';
 
+
 export default class Product {
 
 	constructor(app){
@@ -168,6 +169,8 @@ export default class Product {
 			},
 			template : `
 					  <header-component :title="title"/>
+					  <a href='#/product/add' class='add-lnk-btn d-block prevent-select'>
+					  <i class="fa fa-plus" aria-hidden="true"></i>add product</a>
 					  <filter-btn @toggle-filter="toggle_filter()"
 					  :icon_class="filter_settings.icon_class"
 					  :label="filter_settings.label"/>
@@ -242,6 +245,26 @@ export default class Product {
 		}
 		// prod.mount('#main-container');
 
+	}
+	_render_add(){
+		return {
+			data(){
+				return {
+					title : 'Add Products'
+				}
+			},
+			template : `<header-component :title="title"/>
+						<section class='content-section'>
+							<div>
+								<label>Name</label>
+								<input type='text'>
+							</div>
+							<h1>WIP</h1>
+						</section>`
+						
+
+
+		}
 	}
 
 	
