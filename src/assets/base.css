@@ -98,6 +98,13 @@ a:focus{
 .filter-txt > i{
     font-size: .9em;
 }
+.add-lnk-btn > i{
+    font-size: .9em;
+}
+.add-lnk-btn{
+    margin-left: 2.2rem;
+    margin-bottom: 1.5rem;
+}
 /*loader*/
 .loader-cont{
     /*display:none;*/

@@ -5,6 +5,7 @@ import {paginate_btn} from '.././components/paginate-btn-component'
 import {_option} from '.././components/option-component'
 import Swal from 'sweetalert2';
 
+
 export default class Product {
 
 	constructor(app){
@@ -306,6 +307,26 @@ export default class Product {
 		}
 		// prod.mount('#main-container');
 
+	}
+	_render_add(){
+		return {
+			data(){
+				return {
+					title : 'Add Products'
+				}
+			},
+			template : `<header-component :title="title"/>
+						<section class='content-section'>
+							<div>
+								<label>Name</label>
+								<input type='text'>
+							</div>
+							<h1>WIP</h1>
+						</section>`
+						
+
+
+		}
 	}
 
 	
