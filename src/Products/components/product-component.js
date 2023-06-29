@@ -18,10 +18,11 @@ export const prod_comp = {
 export const prod_filter = {
 	props : ['label' , 'cls','modelValue'],
 	components : ['auto-complete'],
+	emit : ['search'],
 	template : `<div class="col-xs-4">
 				    <label>{{label}}</label>
 				    <br/>
-				    <input :class="cls" type='text' v-model="input_value" />
+				    <input @keydown.enter = "$emit('search')" :class="cls" type='text' v-model="input_value" />
 				</div>`,
 	computed : {
 		input_value : {
