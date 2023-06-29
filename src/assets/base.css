@@ -7,6 +7,9 @@
 }*/
 body{
     background-color: #f4f6f9;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 h1,h2,h3,h4{
     margin: 0 !important;
@@ -22,12 +25,10 @@ a:hover{
 a:focus{
     text-decoration: none !important;
 }
-
-.prevent-select {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+.height-2rem{
+    height: 2.5rem;
 }
+
 .margin-top-5{
     margin-top: 5px;
 }

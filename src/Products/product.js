@@ -1,7 +1,8 @@
-import {prod_comp,prod_filter}  from './components/product-component.js'
-import {filter_btn} from '.././components/filter-btn-component.js'
-import {paginate_btn} from '.././components/paginate-btn-component.js'
-import {auto_complete} from '.././components/auto-complete-input.js'
+import {prod_comp,prod_filter}  from './components/product-component'
+import {filter_btn} from '.././components/filter-btn-component'
+import {paginate_btn} from '.././components/paginate-btn-component'
+// import {auto_complete} from '.././components/auto-complete-input.js'
+import {_option} from '.././components/option-component'
 import Swal from 'sweetalert2';
 
 export default class Product {
@@ -18,6 +19,7 @@ export default class Product {
 		let self = this;
 		this.prod.config.productionTip = false;
 		// this.prod.component('auto-complete',auto_complete);
+		this.prod.component('option-component',_option);
 		this.prod.component('product-component',prod_comp);
 		this.prod.component('filter-btn', filter_btn );
 		this.prod.component('product-filter',prod_filter);
@@ -51,6 +53,12 @@ export default class Product {
 						// }
 
 					],
+
+					// auto_comp_data : [],
+					option_data : {
+						selected : "",
+						data : []
+					},
 					err : {
 						no_data : false
 					},
@@ -60,17 +68,21 @@ export default class Product {
 				}
 			},
 			components : [
-				'header-component',
+				// 'header-component',
 				'filter-btn',
 				'product-filter',
 				'product-component',
 				'pagination-component'
 			],
 			methods : {
+				onChange(event) {
+					this.option_data.selected = event.target.value;
+					this.search();
+        		},
 				toggle_filter(){
 					let status = this.filter_settings.is_open = this.filter_settings.is_open ? false : true;
 					if(status){
-
+						this.get_cat_option();
 						this.filter_settings.icon_class = "fas fa-angle-double-down"
 						
 					}else{
@@ -80,17 +92,51 @@ export default class Product {
 					}
 
 				},
+				// set_selected(){
+
+
+				// }
 				reset_filter(){
 					for(let i in this.filter_inputs){
 						this.filter_inputs[i].value = '';
 					}
+					this.option_data.selected = '';
 					this.get()
+				},
+				seach_on_enter(){
+					this.search();
 				},
 				search(){
 					let q_string = "?name=" +this.filter_inputs[0].value+
-					"&description="+this.filter_inputs[1].value
-					// "&category="+this.filter_inputs[2].value;
+					"&description="+this.filter_inputs[1].value +
+					"&category="+this.option_data.selected;
 					this.get(q_string)
+				},
+				async get_cat_option(){
+					await fetch(core.api_url+"/category/option",{
+						headers : {
+							'Accept' : 'application/json',
+							'Content-Type' : 'application/json',
+							'Authorization' : 'Bearer ' + self.token
+						}
+					}).then((res) => {
+
+						return res.json();
+
+					}).then((d) => {
+
+						if(!d.hasOwnProperty('errors') && !d.hasOwnProperty('error_code')){ 
+
+							let opt = [{
+								id : '',
+								name : "Select Category"
+							}];
+							console.log();
+							this.option_data.data = opt.concat(d.data);
+							
+						}						
+
+					})
 				},
 				async get(params = ''){
 					$('#body-loader').show();
@@ -168,19 +214,33 @@ export default class Product {
 			},
 			template : `
 					  <header-component :title="title"/>
+					  <a href='#/product/add' class='add-lnk-btn d-block'>
+					  <i class="fa fa-plus" aria-hidden="true"></i>add product</a>
 					  <filter-btn @toggle-filter="toggle_filter()"
 					  :icon_class="filter_settings.icon_class"
 					  :label="filter_settings.label"/>
 					  <Transition name="slide-filter">
 					  <div v-if="filter_settings.is_open" class='product-filter-container'>
-					  	<product-filter v-for="(fi,i) in filter_inputs" :key="i"
-					  	:label = "fi.label"
-					  	v-model = "fi.value"
-					  	:cls="filter_settings.input_fltr_class"
+					  	<product-filter v-for="(fi,i) in filter_inputs"
+					  		@search.enter = "seach_on_enter()"
+					  		:key="i"
+					  		:label = "fi.label"
+					  		v-model = "fi.value"
+					  		:cls="filter_settings.input_fltr_class"
 					  	/>
+					  	<div class="col-xs-4">
+					  		<label>Category</label>
+					  		<br/>
+						  	<select @change="onChange($event)" class='prod-filter-input height-2rem' v-model="option_data.selected">
+						  		<option-component v-for="(o,i) in option_data.data" :key="i"
+						  		:val = "o.id"
+						  		:label = "String(o.name).initCap()"
+						  		/>
+						  	</select>
+					  	</div>
 				      	<div class='product-btn-container container-fluid pull-right'>
-				      		<a @click='search()' class='col-xs-6 a-btn prevent-select'>Search</a>
-				      		<a @click="reset_filter()" class='col-xs-6 a-btn prevent-select'>Reset</a>
+				      		<a @click='search()' class='col-xs-6 a-btn'>Search</a>
+				      		<a @click="reset_filter()" class='col-xs-6 a-btn'>Reset</a>
 				      	</div>
 				      </div>
 				      </Transition>
@@ -200,6 +260,7 @@ export default class Product {
 					      	:p_src="p.product_photo.length ? storage+p.product_photo[0].path : '/no-image.png' " 
 					      	:category = String(p.category.name).initCap()
 					      	/>
+
 				      	</div>
 				      	
 						<pagination-component 
@@ -207,6 +268,7 @@ export default class Product {
 							:last="page_details.last_page"
 							@next_page="get('?name='+filter_inputs[0].value+
 							'&description='+filter_inputs[1].value+
+							'&category='+option_data.selected+
 							'&page='+
 
 							(page_details.current_page == this.page_details.last_page
@@ -216,16 +278,17 @@ export default class Product {
 
 							@prev_page="get('?name='+filter_inputs[0].value+
 							'&description='+filter_inputs[1].value+
+							'&category='+option_data.selected+
 							'&page='+
 
 							(page_details.current_page == 1
 							? page_details.last_page : page_details.current_page+-1)
 
 							)"
-
-
+							
 							@last_page="get('?name='+filter_inputs[0].value+
 							'&description='+filter_inputs[1].value+
+							'&category='+option_data.selected+
 							'&page='+page_details.last_page)"
 							
 							@first_page="get('?name='+filter_inputs[0].value+
@@ -237,6 +300,7 @@ export default class Product {
 			beforeMount(){
 				
 				this.get();
+				
 			}
 
 		}
